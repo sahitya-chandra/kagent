@@ -13,11 +13,27 @@ from kagent.adk._a2a import KAgentApp
 def test_agent():  
     """Create a minimal BaseAgent for testing."""  
     class TestAgent(BaseAgent):  
-        async def run(self, context):  
-            return "test response"  
+        def __init__(self):  
+            super().__init__(  
+                name="test_agent",  
+                description="Test agent for unit tests"  
+            )  
+          
+        async def _run_async_impl(self, ctx):  
+            # Proper implementation that yields events  
+            from google.adk.events import Event  
+            from google.genai import types  
+              
+            event = Event(  
+                id=Event.new_id(),  
+                invocation_id=ctx.invocation_id,  
+                author=ctx.agent.name,  
+                branch=ctx.branch,  
+                content=types.ModelContent(parts=[types.Part.from_text(text="test response")])  
+            )  
+            yield event  
       
-    return TestAgent()  
-  
+    return TestAgent()
   
 @pytest.fixture  
 def agent_card():  
