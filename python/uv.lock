@@ -3171,13 +3171,13 @@ name = "poem-flow"
 version = "0.1.0"
 source = { editable = "samples/crewai/poem_flow" }
 dependencies = [
-    { name = "crewai", extra = ["tools"] },
+    { name = "crewai" },
     { name = "kagent-crewai" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "crewai", extras = ["tools"], specifier = ">=0.193.2,<1.0.0" },
+    { name = "crewai", specifier = ">=0.193.2,<1.0.0" },
     { name = "kagent-crewai", editable = "packages/kagent-crewai" },
 ]
 
